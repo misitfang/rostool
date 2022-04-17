@@ -1,0 +1,25 @@
+<launch>
+
+  <arg name="camera_mode"  default="realsense" doc="opt: realsense, camera1, camera2"/>
+
+  <group if="$(eval camera_mode == 'realsense')">
+ <rosparam file="$(find image_process)/config/realsense.yaml" command="load"/> 
+  <node pkg="image_process" type="image_process_node" name="test" output="screen">
+  </node>
+  </group>
+
+  <group if="$(eval camera_mode == 'camera1')">
+ <rosparam file="$(find image_process)/config/camera1.yaml" command="load"/> 
+  <node pkg="image_process" type="image_process_node" name="test" output="screen">
+  </node>
+  </group>
+
+  <!-- <node pkg="image_process" type="image_process_node" name="test" output="screen"/> -->
+  <!-- <param name="image_topic" type="string" value="/camera/color/image_raw"/> --> -->
+  <!-- <<param name="image_topic" type="string" value="/usb_cam2/image_raw"/>   -->
+  <!-- <rosparam file="$(find image_process)/config/realsense.yaml" command="load" ns="usb"/> -->
+
+
+  <node pkg="rviz" type="rviz" name="rviz"/>
+</launch>
+
